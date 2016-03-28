@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.myapplication.FeatureListActivity">
+    <Button
+        android:id="@+id/take_view_attendance"
+        android:layout_height="38dp"
+        android:layout_width="300dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/buttonshape"
+        android:textColor="#FFFFFF"
+        android:text="@string/take_view_attendance"
+        android:textSize="25sp"
+        android:layout_marginTop="20dp"
+        android:onClick="onTakeOrViewAttendance"
+        />
+    <Button
+        android:id="@+id/add_class"
+        android:textColor="#FFFFFF"
+        android:layout_width="300dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/buttonshape"
+        android:text="@string/add_class"
+        android:layout_centerHorizontal="true"
+        android:textSize="25sp"
+        android:layout_below="@+id/take_view_attendance"
+        android:onClick="onAddClass"
+       />
+
+
+</RelativeLayout>
