@@ -4,9 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * Created by Abhishek on 3/10/2016.
- */
 class AMDatabase extends SQLiteOpenHelper
 {
     private static final String DB_NAME="Attendance";
@@ -20,7 +17,7 @@ class AMDatabase extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db)
     {
         db.execSQL("CREATE TABLE USER(NAME TEXT,PASSWORD TEXT);");
-        db.execSQL("CREATE TABLE CLASSES(ID INTEGER PRIMARY KEY AUTOINCREMENT,C_NAME TEXT,SUBJECT TEXT);");
+        db.execSQL("CREATE TABLE CLASSES(_id INTEGER PRIMARY KEY AUTOINCREMENT,C_NAME TEXT,SUBJECT TEXT);");
     }
 
     @Override
