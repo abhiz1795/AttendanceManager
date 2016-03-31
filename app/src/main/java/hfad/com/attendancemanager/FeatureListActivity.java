@@ -23,5 +23,6 @@ public class FeatureListActivity extends Activity
     {
         Intent intent =new Intent(this,ClassDetail.class);
         startActivity(intent);
+        finish();
     }
 }

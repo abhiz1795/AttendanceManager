@@ -18,6 +18,8 @@ public class ProvideClassActivity extends Activity
 {
     SQLiteDatabase db;
     SQLiteOpenHelper classDetailHelper;
+    Spinner className;
+    Spinner subjectName;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -31,7 +33,13 @@ public class ProvideClassActivity extends Activity
         int id = operation.getCheckedRadioButtonId();
         switch(id)
         {
-            case R.id.take_attendance:Intent intentTakeAttendance =new Intent(this,TakeAttendanceActivity.class);
+            case R.id.take_attendance:
+                Intent intentTakeAttendance =new Intent(this,TakeAttendanceActivity.class);
+                Cursor cursor=(Cursor)className.getSelectedItem();
+                String value1=cursor.getString(cursor.getColumnIndex("C_NAME"));
+                String value2=cursor.getString(cursor.getColumnIndex("SUBJECT"));
+                String value=value1+value2;
+                intentTakeAttendance.putExtra(TakeAttendanceActivity.ClassId,value);
                 startActivity(intentTakeAttendance);
                 break;
             case R.id.view_attendance:Intent intent = new Intent(this,ViewAttendanceActivity.class);
@@ -55,7 +63,7 @@ public class ProvideClassActivity extends Activity
                     new String[]{"C_NAME"},
                     new int[]{android.R.id.text1},
                     0);
-            Spinner className=(Spinner)findViewById(R.id.classes);
+            className=(Spinner)findViewById(R.id.classes);
             className.setAdapter(classAdapter);
 
             CursorAdapter subjectAdapter = new SimpleCursorAdapter(this,
@@ -64,7 +72,7 @@ public class ProvideClassActivity extends Activity
                     new String[]{"SUBJECT"},
                     new int[]{android.R.id.text1},
                     0);
-            Spinner subjectName=(Spinner)findViewById(R.id.subject_value);
+            subjectName=(Spinner)findViewById(R.id.subject_value);
             subjectName.setAdapter(subjectAdapter);
 
         }

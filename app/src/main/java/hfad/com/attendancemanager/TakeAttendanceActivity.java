@@ -1,24 +1,72 @@
 package hfad.com.attendancemanager;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 
 public class TakeAttendanceActivity extends Activity {
+
+    public static final String ClassId="ClassId";
+    TextView classNameTV;
+    TextView studentNameTV;
+    TextView rollNoTV;
+    SQLiteOpenHelper databaseHelper;
+    SQLiteDatabase db;
+    String tableName;
+    Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_take_attendance);
+        classNameTV=(TextView)findViewById(R.id.class_name);
+        studentNameTV=(TextView)findViewById(R.id.student_name);
+        rollNoTV=(TextView)findViewById(R.id.roll_no);
+
+        Intent intent=getIntent();
+        tableName=intent.getStringExtra(ClassId);
+        classNameTV.setText(tableName);
+
+        try
+        {
+            databaseHelper=new AMDatabase(this);
+            db=databaseHelper.getWritableDatabase();
+            cursor = db.query(tableName, new String[]{"ID", "S_NAME"}, null, null, null, null, null);
+            if(cursor.moveToFirst())
+            {
+                String rollNo=Integer.toString(cursor.getInt(0));
+                String name=cursor.getString(1);
+                rollNoTV.setText(rollNo);
+                studentNameTV.setText(name);
+            }
+
+        }
+        catch(SQLiteException e)
+        {
+            Toast toast = Toast.makeText(this, "cd Database unavailable", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
     }
     public void onPresent(View view)
     {
-        CharSequence text ="Present";
-        int duration= Toast.LENGTH_SHORT;
-        Toast toast=Toast.makeText(this,text,duration);
-        toast.show();
+        if(cursor.moveToNext())
+        {
+            String rollNo=Integer.toString(cursor.getInt(0));
+            String name=cursor.getString(1);
+            rollNoTV.setText(rollNo);
+            studentNameTV.setText(name);
+        }
     }
     public void onAbsent(View view)
     {
