@@ -25,8 +25,6 @@ public class TakeAttendanceActivity extends Activity {
     SQLiteDatabase db;
     String tableName;
     Cursor cursor;
-    int tLecture;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,13 +64,13 @@ public class TakeAttendanceActivity extends Activity {
 
         incrementAttendance();
         incrementTotalLecture();
-       // setPercentageAttendance();
+
         if(cursor.moveToNext())
         {
             updateClassInfo();
         }
         else
-        {
+        {   setPercentageAttendance();
             Intent intent=new Intent(this,FeatureListActivity.class);
             startActivity(intent);
             finish();
@@ -82,7 +80,7 @@ public class TakeAttendanceActivity extends Activity {
     public void onAbsent(View view)
     {
           incrementTotalLecture();
-         // setPercentageAttendance();
+
         if(cursor.moveToNext())
         {
             updateClassInfo();
@@ -90,6 +88,7 @@ public class TakeAttendanceActivity extends Activity {
         }
         else
         {
+            setPercentageAttendance();
             Intent intent=new Intent(this,FeatureListActivity.class);
             startActivity(intent);
             finish();
@@ -109,29 +108,42 @@ public class TakeAttendanceActivity extends Activity {
         Toast toast=Toast.makeText(this,text,duration);
         toast.show();
     }
-   private void incrementAttendance() {
+   private void incrementAttendance()
+   {
 
-      int  present = cursor.getInt(2);
+       int present = cursor.getInt(2);
        present++;
        db.execSQL("UPDATE " + tableName + " set PRESENT=" + present + " WHERE ID =" + cursor.getInt(0));
 
    }
    private void incrementTotalLecture()
    {
-       tLecture = cursor.getInt(3);
+       int tLecture = cursor.getInt(3);
        tLecture++;
        db.execSQL("UPDATE "+tableName+" SET T_LECTURE="+tLecture+" WHERE ID = "+cursor.getInt(0));
 
    }
    private void setPercentageAttendance()
    {
-       float percentageAttendance;
-       float presentLectures=cursor.getInt(2);
-       float totalLecture=cursor.getInt(3);
-       float hund=100;
-       percentageAttendance =(presentLectures/totalLecture)*hund;
-       db.execSQL("UPDATE "+tableName+" set PERCENTAGE="+percentageAttendance+" WHERE ID ="+cursor.getInt(0));
+       float totalAttendance;
+       int present;
+       int tLecture;
+       cursor = db.query(tableName, new String[]{"ID", "S_NAME", "PRESENT", "T_LECTURE", "PERCENTAGE"}, null, null, null, null, null);
+       if(cursor.moveToFirst())
+       {
+           present=cursor.getInt(2);
+           tLecture=cursor.getInt(3);
+           totalAttendance=((float)present/tLecture)*100;
+           db.execSQL("UPDATE "+tableName+" set PERCENTAGE="+totalAttendance+" WHERE ID ="+cursor.getInt(0));
 
+       }
+       while(cursor.moveToNext())
+       {
+           present=cursor.getInt(2);
+           tLecture=cursor.getInt(3);
+           totalAttendance=((float)present/tLecture)*100;
+           db.execSQL("UPDATE " + tableName + " set PERCENTAGE=" + totalAttendance + " WHERE ID =" + cursor.getInt(0));
+       }
    }
     private void updateClassInfo()
     {
