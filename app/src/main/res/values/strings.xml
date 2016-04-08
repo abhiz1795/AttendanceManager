@@ -53,8 +53,8 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="register">Register</string>
     <string name="title_activity_take_attendance">Take Attendance</string>
-    <string name="present">P</string>
-    <string name="absent">A</string>
+    <string name="present">Present</string>
+    <string name="absent">Absent</string>
     <string name="submit">Submit</string>
     <string name="next">Next</string>
     <string name="roll_no">Roll No</string>

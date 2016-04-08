@@ -1,4 +1,5 @@
 package hfad.com.attendancemanager;
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -79,6 +80,16 @@ public class StudentDetails extends Activity {
         toast.show();
     }
 
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Alert!!!").
+                setMessage("More Students Detail to fill").
+                setNegativeButton("OK",null).show();
     }
 
 }

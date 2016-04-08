@@ -1,6 +1,7 @@
 package hfad.com.attendancemanager;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -94,20 +95,7 @@ public class TakeAttendanceActivity extends Activity {
             finish();
         }
     }
-    public void onPrevious(View view)
-    {
-        CharSequence text ="Previous";
-        int duration= Toast.LENGTH_SHORT;
-        Toast toast=Toast.makeText(this,text,duration);
-        toast.show();
-    }
-    public void onSubmit(View view)
-    {
-        CharSequence text ="Submit";
-        int duration= Toast.LENGTH_SHORT;
-        Toast toast=Toast.makeText(this,text,duration);
-        toast.show();
-    }
+
    private void incrementAttendance()
    {
 
@@ -153,6 +141,14 @@ public class TakeAttendanceActivity extends Activity {
         studentNameTV.setText(name);
 
     }
-
+     @Override
+    public void onBackPressed()
+     {
+       new AlertDialog.Builder(this)
+               .setIcon(android.R.drawable.ic_dialog_alert)
+               .setTitle("Alert!!!").
+               setMessage("Attendance still Incomplete").
+               setNegativeButton("OK",null).show();
+    }
 
 }

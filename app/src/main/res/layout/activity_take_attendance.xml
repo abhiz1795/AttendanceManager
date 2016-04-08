@@ -13,77 +13,51 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="@string/beitb"
-        android:textSize="25sp"
+        android:textSize="30sp"
         android:layout_centerHorizontal="true"
         />
     <TextView
         android:id="@+id/roll_no"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/class_name"
-        android:layout_marginTop="10dp"
-        android:textSize="25sp"
+        android:layout_marginTop="45dp"
+        android:textSize="35sp"
+        android:textStyle="bold"
         android:text="@string/roll_no"
-        android:layout_centerHorizontal="true"
-        />
+        android:layout_below="@+id/class_name"
+        android:layout_centerHorizontal="true" />
     <TextView
         android:id="@+id/student_name"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:textSize="25sp"
-        android:layout_below="@+id/roll_no"
+        android:layout_marginTop="50dp"
+        android:textSize="40sp"
+        android:textStyle="italic"
         android:text="@string/student_name"
-        />
+        android:layout_below="@+id/roll_no"
+        android:layout_centerHorizontal="true" />
     <Button
         android:id="@+id/present"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_width="150dp"
         android:text="@string/present"
-        android:layout_below="@+id/student_name"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="50dp"
-        android:textSize="40sp"
-        android:background="#1dce1d"
+        android:background="@drawable/green_round_button"
         android:onClick="onPresent"
-        />
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="52dp" />
     <Button
         android:id="@+id/absent"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_width="150dp"
         android:text="@string/absent"
-        android:layout_alignTop="@+id/present"
-        android:layout_marginLeft="180dp"
-
-        android:textSize="40sp"
-        android:background="#ff0008"
+        android:background="@drawable/red_round_button"
         android:onClick="onAbsent"
-        />
-     <Button
-         android:id="@+id/previous_button"
-         android:layout_height="wrap_content"
-         android:layout_width="wrap_content"
-         android:drawableLeft="@drawable/previous_button"
-         android:layout_below="@+id/present"
-         android:layout_marginTop="10dp"
-         android:layout_alignLeft="@+id/present"
-         android:height="75dp"
-         android:width="100dp"
-         android:onClick="onPrevious"
-         />
-    <Button
-        android:id="@+id/submit_attendance"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_alignTop="@+id/previous_button"
-        android:text="@string/submit"
-        android:textSize="18sp"
-        android:layout_marginLeft="180dp"
-        android:clickable="false"
-        android:height="75dp"
-        android:width="100dp"
-        android:onClick="onSubmit"
-        />
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/present"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
