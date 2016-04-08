@@ -19,10 +19,8 @@ public class ViewAttendanceActivity extends Activity {
     }
     public void onTotalAttendance(View view)
     {
-        CharSequence text = "Working!!!";
-        int duration= Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(this,text,duration);
-        toast.show();
+        Intent intent = new Intent(this,TotalAttendanceList.class);
+        startActivity(intent);
     }
     public void onMonthlyAttendance(View view)
     {

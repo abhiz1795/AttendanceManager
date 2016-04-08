@@ -42,7 +42,8 @@ public class ProvideClassActivity extends Activity
                 intentTakeAttendance.putExtra(TakeAttendanceActivity.ClassId,value);
                 startActivity(intentTakeAttendance);
                 break;
-            case R.id.view_attendance:Intent intent = new Intent(this,ViewAttendanceActivity.class);
+            case R.id.view_attendance:
+                Intent intent = new Intent(this,ViewAttendanceActivity.class);
                 startActivity(intent);
                 break;
 

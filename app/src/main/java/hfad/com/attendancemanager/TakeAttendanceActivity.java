@@ -1,6 +1,7 @@
 package hfad.com.attendancemanager;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,6 +21,7 @@ public class TakeAttendanceActivity extends Activity {
     TextView classNameTV;
     TextView studentNameTV;
     TextView rollNoTV;
+    int present;
     SQLiteOpenHelper databaseHelper;
     SQLiteDatabase db;
     String tableName;
@@ -41,13 +43,14 @@ public class TakeAttendanceActivity extends Activity {
         {
             databaseHelper=new AMDatabase(this);
             db=databaseHelper.getWritableDatabase();
-            cursor = db.query(tableName, new String[]{"ID", "S_NAME"}, null, null, null, null, null);
+            cursor = db.query(tableName, new String[]{"ID", "S_NAME","PRESENT"}, null, null, null, null, null);
             if(cursor.moveToFirst())
             {
                 String rollNo=Integer.toString(cursor.getInt(0));
                 String name=cursor.getString(1);
                 rollNoTV.setText(rollNo);
                 studentNameTV.setText(name);
+                present=cursor.getInt(2);
             }
 
         }
@@ -60,13 +63,19 @@ public class TakeAttendanceActivity extends Activity {
     }
     public void onPresent(View view)
     {
+        String rollNo;
+        String name;
+        present++;
+        db.execSQL("UPDATE "+tableName+" set PRESENT="+present+" WHERE ID =" +cursor.getInt(0));
         if(cursor.moveToNext())
         {
-            String rollNo=Integer.toString(cursor.getInt(0));
-            String name=cursor.getString(1);
+            rollNo=Integer.toString(cursor.getInt(0));
+            name=cursor.getString(1);
             rollNoTV.setText(rollNo);
             studentNameTV.setText(name);
+
         }
+
     }
     public void onAbsent(View view)
     {

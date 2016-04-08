@@ -48,8 +48,10 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".StudentDetails"
-            android:label="@string/title_activity_student_details"
-            />
+            android:label="@string/title_activity_student_details" />
+        <activity
+            android:name=".TotalAttendanceList"
+            android:label="@string/title_activity_total_attendance_list"></activity>
     </application>
 
 </manifest>

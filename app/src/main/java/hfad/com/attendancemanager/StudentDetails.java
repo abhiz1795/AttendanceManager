@@ -15,7 +15,7 @@ public class StudentDetails extends Activity {
     public static final String NumberOfStudent ="NumberOfStudent";
     public static final String TableName="TableName";
     int no;
-    int count=0;
+    int count=1;
     TextView roll_no;
     EditText s_name;
     String classId;
@@ -32,20 +32,22 @@ public class StudentDetails extends Activity {
     }
     public void onNext(View view)
     {
-        if(count < no-1 && !(s_name.getText().toString().matches("")))
+        if(count < no && !(s_name.getText().toString().matches("")))
         {
             String name=s_name.getText().toString();
             updateClass(name);
 
             s_name.getText().clear();
 
-            count++;
+
 
             roll_no.setText(Integer.toString(count+1));
+            count++;
 
         }
-        else if(count == no-1)
+        else if(count == no)
         {
+            updateClass(s_name.getText().toString());
             Intent intent=new Intent(this,FeatureListActivity.class);
             startActivity(intent);
             finish();
