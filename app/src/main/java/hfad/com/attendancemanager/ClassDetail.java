@@ -31,6 +31,7 @@ public class ClassDetail extends Activity {
     {
         EditText className=(EditText)findViewById(R.id.class_value);
         EditText subject=(EditText)findViewById(R.id.subject_value);
+        EditText nos=(EditText)findViewById(R.id.no_of_student_value);
         classId=className.getText().toString()+subject.getText().toString();
         try
         {
@@ -39,10 +40,11 @@ public class ClassDetail extends Activity {
             ContentValues class_details =new ContentValues();
             class_details.put("C_NAME",className.getText().toString());
             class_details.put("SUBJECT",subject.getText().toString());
+            class_details.put("NOS",Integer.parseInt(nos.getText().toString()));
             db.insert("CLASSES", null, class_details);
 
             //CREATE TABLE EXAMPLE BEITBSPM ON NEW CLASS REGISTRATION
-            db.execSQL("CREATE TABLE "+classId+" (ID INTEGER PRIMARY KEY  AUTOINCREMENT,S_NAME TEXT,PRESENT INTEGER,T_LECTURE,PERCENTAGE INTEGER);");
+            db.execSQL("CREATE TABLE "+classId+" (ID INTEGER PRIMARY KEY  AUTOINCREMENT,S_NAME TEXT,PRESENT INTEGER,T_LECTURE INTEGER,PERCENTAGE REAL);");
         }
         catch(SQLiteException e)
         {

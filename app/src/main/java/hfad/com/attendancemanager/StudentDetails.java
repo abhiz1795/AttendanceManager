@@ -66,9 +66,12 @@ public class StudentDetails extends Activity {
     {
         SQLiteOpenHelper databaseHelper = new AMDatabase(this);
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
-        ContentValues studentName = new ContentValues();
-        studentName.put("S_NAME", name);
-        db.insert(classId, null, studentName);
+        ContentValues student = new ContentValues();
+        student.put("S_NAME", name);
+        student.put("PRESENT",0);
+        student.put("T_LECTURE",0);
+        student.put("PERCENTAGE",0);
+        db.insert(classId, null, student);
     }
     catch (SQLiteException e)
     {

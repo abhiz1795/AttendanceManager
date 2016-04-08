@@ -2,24 +2,26 @@ package hfad.com.attendancemanager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
 public class ViewAttendanceActivity extends Activity {
 
+    public static final String ClassId="ClassId";
+    String tableName;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_attendance);
+
+        Intent intent=getIntent();
+        tableName=intent.getStringExtra(ClassId);
     }
     public void onTotalAttendance(View view)
     {
         Intent intent = new Intent(this,TotalAttendanceList.class);
+        intent.putExtra(TotalAttendanceList.TABLENAME,tableName);
         startActivity(intent);
     }
     public void onMonthlyAttendance(View view)

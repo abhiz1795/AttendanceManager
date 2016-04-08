@@ -21,11 +21,11 @@ public class TakeAttendanceActivity extends Activity {
     TextView classNameTV;
     TextView studentNameTV;
     TextView rollNoTV;
-    int present;
     SQLiteOpenHelper databaseHelper;
     SQLiteDatabase db;
     String tableName;
     Cursor cursor;
+    int tLecture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +43,14 @@ public class TakeAttendanceActivity extends Activity {
         {
             databaseHelper=new AMDatabase(this);
             db=databaseHelper.getWritableDatabase();
-            cursor = db.query(tableName, new String[]{"ID", "S_NAME","PRESENT"}, null, null, null, null, null);
+            cursor = db.query(tableName, new String[]{"ID", "S_NAME", "PRESENT", "T_LECTURE", "PERCENTAGE"}, null, null, null, null, null);
+
             if(cursor.moveToFirst())
             {
-                String rollNo=Integer.toString(cursor.getInt(0));
-                String name=cursor.getString(1);
-                rollNoTV.setText(rollNo);
-                studentNameTV.setText(name);
-                present=cursor.getInt(2);
+
+                updateClassInfo();
+
+
             }
 
         }
@@ -63,26 +63,37 @@ public class TakeAttendanceActivity extends Activity {
     }
     public void onPresent(View view)
     {
-        String rollNo;
-        String name;
-        present++;
-        db.execSQL("UPDATE "+tableName+" set PRESENT="+present+" WHERE ID =" +cursor.getInt(0));
+
+        incrementAttendance();
+        incrementTotalLecture();
+       // setPercentageAttendance();
         if(cursor.moveToNext())
         {
-            rollNo=Integer.toString(cursor.getInt(0));
-            name=cursor.getString(1);
-            rollNoTV.setText(rollNo);
-            studentNameTV.setText(name);
-
+            updateClassInfo();
+        }
+        else
+        {
+            Intent intent=new Intent(this,FeatureListActivity.class);
+            startActivity(intent);
+            finish();
         }
 
     }
     public void onAbsent(View view)
     {
-        CharSequence text ="Absent";
-        int duration= Toast.LENGTH_SHORT;
-        Toast toast=Toast.makeText(this,text,duration);
-        toast.show();
+          incrementTotalLecture();
+         // setPercentageAttendance();
+        if(cursor.moveToNext())
+        {
+            updateClassInfo();
+
+        }
+        else
+        {
+            Intent intent=new Intent(this,FeatureListActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
     public void onPrevious(View view)
     {
@@ -98,7 +109,38 @@ public class TakeAttendanceActivity extends Activity {
         Toast toast=Toast.makeText(this,text,duration);
         toast.show();
     }
+   private void incrementAttendance() {
 
+      int  present = cursor.getInt(2);
+       present++;
+       db.execSQL("UPDATE " + tableName + " set PRESENT=" + present + " WHERE ID =" + cursor.getInt(0));
+
+   }
+   private void incrementTotalLecture()
+   {
+       tLecture = cursor.getInt(3);
+       tLecture++;
+       db.execSQL("UPDATE "+tableName+" SET T_LECTURE="+tLecture+" WHERE ID = "+cursor.getInt(0));
+
+   }
+   private void setPercentageAttendance()
+   {
+       float percentageAttendance;
+       float presentLectures=cursor.getInt(2);
+       float totalLecture=cursor.getInt(3);
+       float hund=100;
+       percentageAttendance =(presentLectures/totalLecture)*hund;
+       db.execSQL("UPDATE "+tableName+" set PERCENTAGE="+percentageAttendance+" WHERE ID ="+cursor.getInt(0));
+
+   }
+    private void updateClassInfo()
+    {
+        String rollNo=Integer.toString(cursor.getInt(0));
+        String name=cursor.getString(1);
+        rollNoTV.setText(rollNo);
+        studentNameTV.setText(name);
+
+    }
 
 
 }

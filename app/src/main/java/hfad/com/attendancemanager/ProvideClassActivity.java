@@ -31,20 +31,22 @@ public class ProvideClassActivity extends Activity
     {
         RadioGroup operation =(RadioGroup)findViewById(R.id.operation);
         int id = operation.getCheckedRadioButtonId();
+        Cursor cursor=(Cursor)className.getSelectedItem();
+        String value1=cursor.getString(cursor.getColumnIndex("C_NAME"));
+        String value2=cursor.getString(cursor.getColumnIndex("SUBJECT"));
+        String value=value1+value2;
         switch(id)
         {
             case R.id.take_attendance:
                 Intent intentTakeAttendance =new Intent(this,TakeAttendanceActivity.class);
-                Cursor cursor=(Cursor)className.getSelectedItem();
-                String value1=cursor.getString(cursor.getColumnIndex("C_NAME"));
-                String value2=cursor.getString(cursor.getColumnIndex("SUBJECT"));
-                String value=value1+value2;
+
                 intentTakeAttendance.putExtra(TakeAttendanceActivity.ClassId,value);
                 startActivity(intentTakeAttendance);
                 break;
             case R.id.view_attendance:
-                Intent intent = new Intent(this,ViewAttendanceActivity.class);
-                startActivity(intent);
+                Intent intentViewAttendance = new Intent(this,ViewAttendanceActivity.class);
+                 intentViewAttendance.putExtra(ViewAttendanceActivity.ClassId,value);
+                startActivity(intentViewAttendance);
                 break;
 
         }

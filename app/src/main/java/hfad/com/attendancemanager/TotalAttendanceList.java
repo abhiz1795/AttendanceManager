@@ -9,22 +9,47 @@ import static hfad.com.attendancemanager.Constants.FIFTH_COLUMN;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class TotalAttendanceList extends Activity {
 
+	public static final String TABLENAME="TableName";
 	private ArrayList<HashMap<String, String>> list;
+	String tableName;
+    Cursor cursor;
+    SQLiteOpenHelper databaseHelper;
+    SQLiteDatabase db;
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_total_attendance_list);
-		
+
+        Intent intent=getIntent();
+        tableName=intent.getStringExtra(TABLENAME);
+
+        try
+        {
+            databaseHelper=new AMDatabase(this);
+            db=databaseHelper.getReadableDatabase();
+            cursor = db.query(tableName, new String[]{"ID", "S_NAME", "PRESENT", "T_LECTURE", "PERCENTAGE"}, null, null, null, null, null);
+        }
+        catch (SQLiteException e)
+        {
+            Toast.makeText(this,"Database Unavailable",Toast.LENGTH_SHORT).show();
+        }
+
 		ListView listView=(ListView)findViewById(R.id.listView1);
-		populateList();
+        populateList();
 		ListViewAdapter adapter=new ListViewAdapter(this, list);
 		listView.setAdapter(adapter);
 	
@@ -32,33 +57,48 @@ public class TotalAttendanceList extends Activity {
 
 	private void populateList() {
 		// TODO Auto-generated method stub
-		
+		String id;
+		String name;
+		String present;
+		String tLecture;
+		String perAttendance;
 		list=new ArrayList<HashMap<String,String>>();
-		
-		HashMap<String,String> temp=new HashMap<String, String>();
-			temp.put(FIRST_COLUMN, "1");
-			temp.put(SECOND_COLUMN, "Aman");
-			temp.put(THIRD_COLUMN, "2");
-			temp.put(FOURTH_COLUMN, "5");
-			temp.put(FIFTH_COLUMN,"40");
-		list.add(temp);
-		
-		HashMap<String,String> temp2=new HashMap<String, String>();
-		temp2.put(FIRST_COLUMN, "1");
-		temp2.put(SECOND_COLUMN, "Harsh");
-		temp2.put(THIRD_COLUMN, "2");
-		temp2.put(FOURTH_COLUMN, "5");
-		temp2.put(FIFTH_COLUMN,"40");
-	list.add(temp2);
-	
-	HashMap<String,String> temp3=new HashMap<String, String>();
-			temp3.put(FIRST_COLUMN, "1");
-		temp3.put(SECOND_COLUMN, "Harsh");
-		temp3.put(THIRD_COLUMN, "2");
-		temp3.put(FOURTH_COLUMN, "5");
-		temp3.put(FIFTH_COLUMN,"40");
-		list.add(temp3);
-		
-			
+
+
+		HashMap<String,String> temp;
+
+
+			if (cursor.moveToFirst())
+			{
+				temp=new HashMap<String, String>();
+				id=Integer.toString(cursor.getInt(0));
+				name=cursor.getString(1);
+				present=Integer.toString(cursor.getInt(2));
+				tLecture=Integer.toString(cursor.getInt(3));
+				perAttendance=Float.toString(cursor.getFloat(4));
+				temp.put(FIRST_COLUMN, id);
+				temp.put(SECOND_COLUMN, name);
+				temp.put(THIRD_COLUMN, present);
+				temp.put(FOURTH_COLUMN, tLecture);
+				temp.put(FIFTH_COLUMN, perAttendance);
+				list.add(temp);
+			}
+			while(cursor.moveToNext())
+			{
+				temp=new HashMap<String, String>();
+				id=Integer.toString(cursor.getInt(0));
+				name=cursor.getString(1);
+				present=Integer.toString(cursor.getInt(2));
+				tLecture=Integer.toString(cursor.getInt(3));
+                perAttendance=Float.toString(cursor.getFloat(4));
+				temp.put(FIRST_COLUMN, id);
+				temp.put(SECOND_COLUMN, name);
+				temp.put(THIRD_COLUMN, present);
+				temp.put(FOURTH_COLUMN, tLecture);
+				temp.put(FIFTH_COLUMN, perAttendance);
+				list.add(temp);
+			}
+
+
 	}
 }

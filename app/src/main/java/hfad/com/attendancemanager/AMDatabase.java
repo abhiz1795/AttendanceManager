@@ -16,8 +16,8 @@ class AMDatabase extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        db.execSQL("CREATE TABLE USER(NAME TEXT,PASSWORD TEXT);");
-        db.execSQL("CREATE TABLE CLASSES(_id INTEGER PRIMARY KEY AUTOINCREMENT,C_NAME TEXT,SUBJECT TEXT);");
+        db.execSQL("CREATE TABLE USER(NAME TEXT,PASSWORD TEXT);"); //NOS == Number of Student
+        db.execSQL("CREATE TABLE CLASSES(_id INTEGER PRIMARY KEY AUTOINCREMENT,C_NAME TEXT,SUBJECT TEXT,NOS INTEGER);");
     }
 
     @Override
