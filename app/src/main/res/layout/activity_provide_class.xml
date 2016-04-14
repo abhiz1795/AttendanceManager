@@ -14,10 +14,11 @@
         android:layout_marginLeft="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/class_name"
+        android:text="@string/Select_class"
         android:textSize="30dp"
         android:layout_marginTop="30dp"
         />
+
     <Spinner
         android:id="@+id/classes"
         android:layout_width="match_parent"
@@ -25,6 +26,7 @@
         android:layout_below="@+id/class_name"
         android:layout_marginTop="15dp"
         />
+    <!--
     <TextView
         android:id="@+id/subject"
         android:layout_marginLeft="15dp"
@@ -35,33 +37,19 @@
         android:textSize="30sp"
 
         />
+
     <Spinner
         android:id="@+id/subject_value"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/subject"
-        android:layout_marginTop="15dp"
-        />
+        android:layout_marginTop="52dp"
+        android:layout_below="@+id/class_name"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+        -->
 
-    <RadioGroup
-        android:id="@+id/operation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/subject_value"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal">
-        <RadioButton
-            android:id="@+id/take_attendance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/take_attendance"/>
-       <RadioButton
-           android:id="@+id/view_attendance"
-           android:layout_height="wrap_content"
-           android:layout_width="wrap_content"
-           android:text="@string/view_attendance"
-           />
-        </RadioGroup>
+
+
     <Button
         android:id="@+id/class_submit"
         android:textColor="#FFFFFF"
@@ -75,5 +63,34 @@
         android:layout_centerHorizontal="true"
         android:onClick="onSubmit"
         />
+
+    <RadioGroup
+        android:id="@+id/operation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_above="@+id/class_submit"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="52dp">
+
+    <RadioButton
+        android:id="@+id/take_attendance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/take_attendance"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="129dp" />
+
+    <RadioButton
+       android:id="@+id/view_attendance"
+       android:layout_height="wrap_content"
+       android:layout_width="wrap_content"
+       android:text="@string/view_attendance"
+        android:layout_alignTop="@+id/take_attendance"
+        android:layout_alignRight="@+id/operation"
+        android:layout_alignEnd="@+id/operation" />
+    </RadioGroup>
 
 </RelativeLayout>

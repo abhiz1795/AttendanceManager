@@ -3,20 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="hfad.com.attendancemanager.TotalAttendanceList">
 
-     <include
-       layout="@layout/header"
-       android:id="@+id/id"/>
+    tools:context="hfad.com.attendancemanager.DefaulterListActivity">
     
+ <include
+       layout="@layout/header"
+       android:id="@+id/id"
+     android:layout_height="wrap_content"
+     android:layout_width="match_parent"
+     />
     <ListView
         android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/id"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/id"
+        android:layout_alignStart="@+id/id"
         android:layout_marginTop="30dp">
     </ListView>
-
 </RelativeLayout>

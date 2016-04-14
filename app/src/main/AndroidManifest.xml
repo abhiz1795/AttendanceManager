@@ -51,7 +51,10 @@
             android:label="@string/title_activity_student_details" />
         <activity
             android:name=".TotalAttendanceList"
-            android:label="@string/title_activity_total_attendance_list"></activity>
+            android:label="@string/title_activity_total_attendance_list" />
+        <activity
+            android:name=".DefaulterListActivity"
+            android:label="@string/title_activity_defaulter_list"></activity>
     </application>
 
 </manifest>

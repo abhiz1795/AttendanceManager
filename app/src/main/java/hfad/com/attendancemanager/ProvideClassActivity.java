@@ -1,6 +1,7 @@
 package hfad.com.attendancemanager;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -19,7 +20,7 @@ public class ProvideClassActivity extends Activity
     SQLiteDatabase db;
     SQLiteOpenHelper classDetailHelper;
     Spinner className;
-    Spinner subjectName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -31,11 +32,13 @@ public class ProvideClassActivity extends Activity
     {
         RadioGroup operation =(RadioGroup)findViewById(R.id.operation);
         int id = operation.getCheckedRadioButtonId();
-        Cursor cursor=(Cursor)className.getSelectedItem();
-        String value1=cursor.getString(cursor.getColumnIndex("C_NAME"));
-        String value2=cursor.getString(cursor.getColumnIndex("SUBJECT"));
-        String value=value1+value2;
-        switch(id)
+
+        Cursor classId=(Cursor)className.getSelectedItem();
+        String value=classId.getString(classId.getColumnIndex("C_ID"));
+
+
+
+       switch(id)
         {
             case R.id.take_attendance:
                 Intent intentTakeAttendance =new Intent(this,TakeAttendanceActivity.class);
@@ -59,24 +62,17 @@ public class ProvideClassActivity extends Activity
             classDetailHelper=new AMDatabase(this);
             db=classDetailHelper.getReadableDatabase();
 
-            Cursor cursor = db.query("CLASSES", new String[]{"_id", "C_NAME","SUBJECT"}, null, null, null, null, null);
+            Cursor cursor = db.query("CLASSES", new String[]{"_id","C_ID"}, null, null, null, null, null);
             CursorAdapter classAdapter = new SimpleCursorAdapter(this,
                     android.R.layout.simple_list_item_1,
                     cursor,
-                    new String[]{"C_NAME"},
+                    new String[]{"C_ID"},
                     new int[]{android.R.id.text1},
                     0);
             className=(Spinner)findViewById(R.id.classes);
             className.setAdapter(classAdapter);
 
-            CursorAdapter subjectAdapter = new SimpleCursorAdapter(this,
-                    android.R.layout.simple_list_item_1,
-                    cursor,
-                    new String[]{"SUBJECT"},
-                    new int[]{android.R.id.text1},
-                    0);
-            subjectName=(Spinner)findViewById(R.id.subject_value);
-            subjectName.setAdapter(subjectAdapter);
+
 
         }
         catch(SQLiteException e)

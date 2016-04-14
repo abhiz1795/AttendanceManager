@@ -31,9 +31,8 @@ public class ViewAttendanceActivity extends Activity {
     }
     public void onDefaulters(View view)
     {
-        CharSequence text = "Working!!!";
-        int duration= Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(this,text,duration);
-        toast.show();
+        Intent intent = new Intent(this,DefaulterListActivity.class);
+        intent.putExtra(TotalAttendanceList.TABLENAME,tableName);
+        startActivity(intent);
     }
 }
